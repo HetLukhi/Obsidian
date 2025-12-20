@@ -39,3 +39,16 @@
 
 # debug information files
 *.dwo
+
+# CMake
+build/
+cmake-build*/
+CMakeFiles/
+CMakeCache.txt
+
+# Visual Studio
+.vs/
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
