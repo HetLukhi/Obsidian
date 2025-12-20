@@ -15,15 +15,20 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SDL2)
 
 add_library(Engine
-    Engine/src/Engine.cpp
+    Engine/src/Graphics/window.cpp
+    Engine/src/Core/engine.cpp
 )
 
 target_include_directories(Engine
     PUBLIC Engine/include
 )
 
+target_link_libraries(Engine
+    PUBLIC SDL2::SDL2 SDL2::SDL2main
+)
+
 add_executable(Sandbox
-    sandbox/src/main.cpp
+    Sandbox/src/main.cpp
 )
 
 target_link_libraries(Sandbox
