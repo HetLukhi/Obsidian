@@ -24,8 +24,21 @@ namespace obsidian {
 		}
 
 		void Engine::Run() {
+			SDL_Event event;
 			while (m_Running) {
-				
+
+				obsidian::input::Input::Update();
+
+				while (SDL_PollEvent(&event)) {
+					obsidian::input::Input::ProcessEvent(event);
+
+					if (obsidian::input::Input::QuitRequest()) {
+						m_Running = false;
+					}
+				}
+
+				m_Renderer->BeginFrame();
+				m_Renderer->EndFrame();
 			}
 		}
 	}

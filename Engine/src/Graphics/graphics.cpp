@@ -42,6 +42,7 @@ namespace obsidian {
 		}
 
 		void Renderer::BeginFrame() {
+			SDL_SetRenderDrawColor(m_Renderer.get(),0,0,0,255);
 			SDL_RenderClear(m_Renderer.get());
 		}
 

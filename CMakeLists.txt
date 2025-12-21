@@ -15,8 +15,9 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SDL2)
 
 add_library(Engine
-    "Engine/src/Graphics/graphics.cpp"
+    Engine/src/Graphics/graphics.cpp
     Engine/src/Core/engine.cpp
+    Engine/src/Input/input.cpp
 )
 
 target_include_directories(Engine
