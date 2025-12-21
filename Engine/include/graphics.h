@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include <memory>
+#include <stdexcept>
 #include <string>
 
 namespace obsidian {
@@ -16,10 +17,13 @@ namespace obsidian {
 
 		public:
 			Window();
-			void Window_Init();
+			Window(const std::string& title, int width, int height);
 			int GetWidth() const;
 			int GetHeight() const;
 			SDL_Window* Get_Native_Window() const;
+
+		private:
+			void Window_Init();
 		};
 
 		class Renderer {
