@@ -21,6 +21,8 @@ add_library(ObsidianCore
     Obsidian/Input/Input.cpp
 )
 
+target_include_directories(ObsidianCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Obsidian)
+
 target_include_directories(ObsidianCore PUBLIC
     Obsidian/Core
     Obsidian/Renderer
@@ -29,12 +31,11 @@ target_include_directories(ObsidianCore PUBLIC
     Obsidian
 )
 
-target_link_libraries(ObsidianCore PUBLIC SDL2::SDL2)
+target_link_libraries(ObsidianCore PUBLIC SDL2::SDL2 SDL2::SDL2main)
 
 add_executable(Sandbox
     Sandbox/Sandbox.cpp
-    Sandbox
-    Obsidian/Core
+    Obsidian
 )
 
 target_link_libraries(Sandbox PRIVATE ObsidianCore)

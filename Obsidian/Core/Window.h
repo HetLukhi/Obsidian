@@ -18,6 +18,7 @@ namespace obsidian {
 		public:
 			Window();
 			Window(const std::string& title, int width, int height);
+			~Window();
 			int GetWidth() const;
 			int GetHeight() const;
 			SDL_Window* Get_Native_Window() const;

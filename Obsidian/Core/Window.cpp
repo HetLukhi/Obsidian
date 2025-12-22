@@ -10,6 +10,8 @@ namespace obsidian {
 			Window_Init();
 		}
 
+		Window::~Window() {}
+
 		void Window::Window_Init() {
 
 			this->m_Window.reset(SDL_CreateWindow(m_Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Width, m_Height, SDL_WINDOW_SHOWN));
