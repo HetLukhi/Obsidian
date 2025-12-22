@@ -30,8 +30,20 @@ namespace obsidian {
 			return false;
 		}
 
+		bool Input::IsMouseButtonReleased(int button) {
+			if (button >= 0 && button < MAX_BUTTON)
+				return m_MouseReleased[button];
+			return false;
+		}
+
+		bool Input::IsMouseButtonHeld(int button) {
+			if (button >= 0 && button < MAX_BUTTON)
+				return m_MouseHeld[button];
+			return false;
+		}
+
 		void Input::Update() {
-			
+
 			for (int i = 0; i < SDL_NUM_SCANCODES; ++i) {
 				m_KeyPressed[i] = false;
 				m_KeyReleased[i] = false;
@@ -59,15 +71,15 @@ namespace obsidian {
 			case SDL_KEYDOWN: {
 				SDL_Scancode sc = event.key.keysym.scancode;
 				if (!m_KeyHeld[sc]) {
-					m_KeyPressed[sc] = true;	
+					m_KeyPressed[sc] = true;
 				}
 				m_KeyHeld[sc] = true;
 				break;
 			}
 			case SDL_KEYUP: {
 				SDL_Scancode sc = event.key.keysym.scancode;
-					m_KeyReleased[sc] = true;
-					m_KeyHeld[sc] = false;
+				m_KeyReleased[sc] = true;
+				m_KeyHeld[sc] = false;
 				break;
 			}
 			case SDL_MOUSEBUTTONDOWN: {

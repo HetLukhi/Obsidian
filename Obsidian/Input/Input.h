@@ -24,8 +24,10 @@ namespace obsidian {
 			static bool IsKeyReleased(SDL_Scancode key);
 			static bool IsKeyPressed(SDL_Scancode key);
 			static bool IsKeyHeld(SDL_Scancode key);
+			static bool IsMouseButtonReleased(int button);
 			static bool IsMouseButtonPressed(int button);
-			static void GetMousePositions(int& x,int& y);
+			static bool IsMouseButtonHeld(int button);
+			static void GetMousePositions(int& x, int& y);
 			static void ProcessEvent(SDL_Event& event);
 			static bool QuitRequest();
 		};

@@ -5,7 +5,7 @@
 #include <string>
 
 namespace obsidian {
-	namespace graphics {
+	namespace core {
 
 		class Window {
 
@@ -24,17 +24,6 @@ namespace obsidian {
 
 		private:
 			void Window_Init();
-		};
-
-		class Renderer {
-		private:
-			std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> m_Renderer;
-
-		public:
-			Renderer();
-			void Renderer_Init(const Window& window);
-			void BeginFrame();
-			void EndFrame();
 		};
 	}
 }
