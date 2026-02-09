@@ -18,7 +18,7 @@ add_library(ObsidianCore
     Obsidian/Core/Application.cpp
     Obsidian/Core/Window.cpp
     Obsidian/Renderer/Renderer.cpp
-    Obsidian/Input/Input.cpp
+    Obsidian/Events/Event.cpp
 )
 
 target_include_directories(ObsidianCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Obsidian)
@@ -26,7 +26,7 @@ target_include_directories(ObsidianCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Obsid
 target_include_directories(ObsidianCore PUBLIC
     Obsidian/Core
     Obsidian/Renderer
-    Obsidian/Input
+    Obsidian/Events
     Sandbox
     Obsidian
 )

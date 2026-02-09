@@ -1,48 +1,54 @@
-#include "input.h"
+#include "Event.h"
 
 namespace obsidian {
-	namespace input {
+	namespace event {
 
-		bool Input::m_QuitRequest{ false };
-		bool Input::m_KeyHeld[SDL_NUM_SCANCODES]{ false };
-		bool Input::m_KeyReleased[SDL_NUM_SCANCODES]{ false };
-		bool Input::m_KeyPressed[SDL_NUM_SCANCODES]{ false };
+		bool Event::m_QuitRequest{ false };
+		bool Event::m_KeyHeld[SDL_NUM_SCANCODES]{ false };
+		bool Event::m_KeyReleased[SDL_NUM_SCANCODES]{ false };
+		bool Event::m_KeyPressed[SDL_NUM_SCANCODES]{ false };
 
-		bool Input::m_MouseHeld[MAX_BUTTON]{ false };
-		bool Input::m_MousePressed[MAX_BUTTON]{ false };
-		bool Input::m_MouseReleased[MAX_BUTTON]{ false };
-		int Input::m_MouseX{ 0 };
-		int Input::m_MouseY{ 0 };
+		bool Event::m_MouseHeld[MAX_BUTTON]{ false };
+		bool Event::m_MousePressed[MAX_BUTTON]{ false };
+		bool Event::m_MouseReleased[MAX_BUTTON]{ false };
+		int Event::m_MouseX{ 0 };
+		int Event::m_MouseY{ 0 };
 
-		bool Input::IsKeyPressed(SDL_Scancode key) {
+		bool Event::m_WindowResized{ false };
+		int Event::m_WindowHeight{ 0 };
+		int Event::m_WindowWidth{ 0 };
+
+		bool Event::IsKeyPressed(SDL_Scancode key) {
 			return m_KeyPressed[key];
 		}
-		bool Input::IsKeyReleased(SDL_Scancode key) {
+		bool Event::IsKeyReleased(SDL_Scancode key) {
 			return m_KeyReleased[key];
 		}
-		bool Input::IsKeyHeld(SDL_Scancode key) {
+		bool Event::IsKeyHeld(SDL_Scancode key) {
 			return m_KeyHeld[key];
 		}
 
-		bool Input::IsMouseButtonPressed(int button) {
+			bool Event::IsMouseButtonPressed(int button) {
 			if (button >= 0 && button < MAX_BUTTON)
 				return m_MousePressed[button];
 			return false;
 		}
 
-		bool Input::IsMouseButtonReleased(int button) {
+		bool Event::IsMouseButtonReleased(int button) {
 			if (button >= 0 && button < MAX_BUTTON)
 				return m_MouseReleased[button];
 			return false;
 		}
 
-		bool Input::IsMouseButtonHeld(int button) {
+		bool Event::IsMouseButtonHeld(int button) {
 			if (button >= 0 && button < MAX_BUTTON)
 				return m_MouseHeld[button];
 			return false;
 		}
 
-		void Input::Update() {
+		void Event::Update() {
+
+			Event::m_WindowResized = false;
 
 			for (int i = 0; i < SDL_NUM_SCANCODES; ++i) {
 				m_KeyPressed[i] = false;
@@ -54,16 +60,25 @@ namespace obsidian {
 			}
 		}
 
-		bool Input::QuitRequest() {
+		bool Event::QuitRequest() {
 			return m_QuitRequest;
 		}
 
-		void Input::GetMousePositions(int& x, int& y) {
+		void Event::GetMousePositions(int& x, int& y) {
 			x = m_MouseX;
 			y = m_MouseY;
 		}
 
-		void Input::ProcessEvent(SDL_Event& event) {
+		bool Event::IsWindowResized() {
+			return m_WindowResized;
+		}
+
+		void Event::GetWindowSize(int& w, int& h) {
+			w = m_WindowWidth;
+			h = m_WindowHeight;
+		}
+
+		void Event::ProcessEvent(SDL_Event& event) {
 			switch (event.type) {
 			case SDL_QUIT:
 				m_QuitRequest = true;
@@ -101,6 +116,13 @@ namespace obsidian {
 			case SDL_MOUSEMOTION:
 				m_MouseX = event.motion.x;
 				m_MouseY = event.motion.y;
+				break;
+			case SDL_WINDOWEVENT:
+				if (event.window.event == SDL_WINDOWEVENT_RESIZED || event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+					m_WindowResized = true;
+					m_WindowWidth = event.window.data1;
+					m_WindowHeight = event.window.data2;
+				}
 				break;
 			default:
 				break;

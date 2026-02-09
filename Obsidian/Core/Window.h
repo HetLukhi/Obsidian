@@ -21,6 +21,8 @@ namespace obsidian {
 			~Window();
 			int GetWidth() const;
 			int GetHeight() const;
+			void OnUpdate();
+			void Resize(int width, int height);
 			SDL_Window* Get_Native_Window() const;
 
 		private:

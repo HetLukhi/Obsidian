@@ -10,11 +10,11 @@ namespace obsidian {
 			Window_Init();
 		}
 
-		Window::~Window() {}
+		Window::~Window(){}
 
 		void Window::Window_Init() {
 
-			this->m_Window.reset(SDL_CreateWindow(m_Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Width, m_Height, SDL_WINDOW_SHOWN));
+			this->m_Window.reset(SDL_CreateWindow(m_Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Width, m_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE));
 
 			if (!m_Window) {
 				throw std::runtime_error(std::string("Error creating Window: ") + SDL_GetError());
@@ -27,6 +27,15 @@ namespace obsidian {
 
 		int Window::GetHeight() const {
 			return m_Height;
+		}
+
+		void Window::OnUpdate() {
+			
+		}
+
+		void Window::Resize(int width, int height) {
+			m_Width = width;
+			m_Height = height;
 		}
 
 		SDL_Window* Window::Get_Native_Window() const {
