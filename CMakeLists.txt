@@ -14,6 +14,7 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(SDL2)
 
+
 add_library(ObsidianCore
     Obsidian/Core/Application.cpp
     Obsidian/Core/Window.cpp
@@ -24,18 +25,13 @@ add_library(ObsidianCore
 target_include_directories(ObsidianCore PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/Obsidian)
 
 target_include_directories(ObsidianCore PUBLIC
-    Obsidian/Core
-    Obsidian/Renderer
-    Obsidian/Events
-    Sandbox
-    Obsidian
+    ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
 target_link_libraries(ObsidianCore PUBLIC SDL2::SDL2 SDL2::SDL2main)
 
 add_executable(Sandbox
     Sandbox/Sandbox.cpp
-    Obsidian
 )
 
 target_link_libraries(Sandbox PRIVATE ObsidianCore)

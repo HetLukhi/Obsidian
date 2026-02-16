@@ -2,43 +2,47 @@
 
 namespace obsidian {
 	namespace core {
-		Window::Window() : m_Title{ "Window" }, m_Width{ 800 }, m_Height{ 600 }, m_Window{ nullptr, SDL_DestroyWindow } {
-			Window_Init();
+		Window::Window(const WindowProps& props) : m_Window(nullptr, SDL_DestroyWindow) {
+			Init(props);
 		}
 
-		Window::Window(const std::string& title, int width, int height) : m_Title{ title }, m_Width{ width }, m_Height{ height }, m_Window(nullptr, SDL_DestroyWindow) {
-			Window_Init();
+		std::unique_ptr<Window> Window::Create(const WindowProps& props) {
+			return std::make_unique<Window>(props);
 		}
 
-		Window::~Window(){}
-
-		void Window::Window_Init() {
-
-			this->m_Window.reset(SDL_CreateWindow(m_Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Width, m_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE));
+		void Window::Init(const WindowProps& props) {
+			m_Data.Title = props.Title;
+			m_Data.Width = props.Width;
+			m_Data.Height = props.Height;
+			this->m_Window.reset(SDL_CreateWindow(m_Data.Title.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, m_Data.Width, m_Data.Height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE));
 
 			if (!m_Window) {
 				throw std::runtime_error(std::string("Error creating Window: ") + SDL_GetError());
 			}
 		}
 
-		int Window::GetWidth() const {
-			return m_Width;
+
+		unsigned int Window::GetWidth() const {
+			return m_Data.Width;
 		}
 
-		int Window::GetHeight() const {
-			return m_Height;
+		unsigned int Window::GetHeight() const {
+			return m_Data.Height;
 		}
 
 		void Window::OnUpdate() {
 			
+		
+			if (obsidian::event::Event::IsWindowResized())
+			{
+				int w, h;
+				obsidian::event::Event::GetWindowSize(w, h);
+				m_Data.Width = w;
+				m_Data.Height = h;
+			}
 		}
 
-		void Window::Resize(int width, int height) {
-			m_Width = width;
-			m_Height = height;
-		}
-
-		SDL_Window* Window::Get_Native_Window() const {
+		SDL_Window* Window::GetNativeWindow() const {
 			return m_Window.get();
 		}
 	}

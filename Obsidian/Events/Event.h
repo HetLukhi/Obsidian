@@ -37,6 +37,7 @@ namespace obsidian {
 			static void GetWindowSize(int& w, int& h);
 			static void ProcessEvent(SDL_Event& event);
 			static bool QuitRequest();
+			static void PollEvent();
 		};
 	}
 }

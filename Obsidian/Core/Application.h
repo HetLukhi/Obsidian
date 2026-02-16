@@ -1,8 +1,8 @@
 #pragma once
 #include "Window.h"
-#include "Event.h"
-#include "Renderer.h"
-#include <iostream>
+#include "Events/Event.h"
+#include "Renderer/Renderer.h"
+#include<iostream>
 
 namespace obsidian {
 	namespace core {
