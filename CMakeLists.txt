@@ -18,6 +18,7 @@ FetchContent_MakeAvailable(SDL2)
 add_library(ObsidianCore
     Obsidian/Core/Application.cpp
     Obsidian/Core/Window.cpp
+    Obsidian/Maths/Vec2.cpp
     Obsidian/Renderer/Renderer.cpp
     Obsidian/Events/Event.cpp
 )
