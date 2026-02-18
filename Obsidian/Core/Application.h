@@ -14,7 +14,6 @@ namespace obsidian {
 
 		private:
 			std::unique_ptr<obsidian::core::Window> m_Window;
-			std::unique_ptr<obsidian::renderer::Renderer> m_Renderer;
 			bool m_Running = true;
 			void Init();
 			void Shutdown();

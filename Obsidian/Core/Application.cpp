@@ -6,11 +6,10 @@ namespace obsidian {
 		Application::Application() {
 			Init();
 			m_Window = Window::Create({ "Obsidian Engine", 1280, 720 });
-			m_Renderer = std::make_unique<obsidian::renderer::Renderer>();
-			m_Renderer->Renderer_Init(*m_Window);
+			obsidian::renderer::Renderer::Init(*m_Window);
 		}
 		Application::~Application(){
-			m_Renderer.reset();
+			obsidian::renderer::Renderer::Shutdown();
 			m_Window.reset();
 			Shutdown();
 		}
@@ -25,15 +24,14 @@ namespace obsidian {
 		}
 		void Application::Run() {	
 			while (m_Running) {
-				obsidian::event::Event::PollEvent();
 				obsidian::event::Event::Update();
 
 				if (obsidian::event::Event::QuitRequest() == true) m_Running = false;
 
 				m_Window->OnUpdate();
 				
-				m_Renderer->BeginFrame();
-				m_Renderer->EndFrame();
+				obsidian::renderer::Renderer::BeginFrame();
+				obsidian::renderer::Renderer::EndFrame();
 
 			}
 		}

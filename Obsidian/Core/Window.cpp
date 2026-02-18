@@ -21,7 +21,6 @@ namespace obsidian {
 			}
 		}
 
-
 		unsigned int Window::GetWidth() const {
 			return m_Data.Width;
 		}
@@ -32,7 +31,12 @@ namespace obsidian {
 
 		void Window::OnUpdate() {
 			
-		
+			SDL_Event event;
+			while (SDL_PollEvent(&event))
+			{
+				obsidian::event::Event::ProcessEvent(event);
+			}
+
 			if (obsidian::event::Event::IsWindowResized())
 			{
 				int w, h;

@@ -77,13 +77,6 @@ namespace obsidian {
 			w = m_WindowWidth;
 			h = m_WindowHeight;
 		}
-		void Event::PollEvent() {
-			SDL_Event event;
-			while (SDL_PollEvent(&event))
-			{
-				obsidian::event::Event::ProcessEvent(event);
-			}
-		}
 
 		void Event::ProcessEvent(SDL_Event& event) {
 			switch (event.type) {
