@@ -17,6 +17,7 @@ namespace obsidian {
 			bool m_Running = true;
 			void Init();
 			void Shutdown();
+			void OnEvent();
 		};
 
 		Application* CreateApplication();

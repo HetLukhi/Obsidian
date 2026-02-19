@@ -1,6 +1,6 @@
 #pragma once
 #include <SDL.h>
-#include "../Core/Window.h"
+#include "Core/Window.h"
 #include <memory>
 #include <stdexcept>
 #include <string>
@@ -26,7 +26,10 @@ namespace obsidian {
 			static void EndFrame();
 
 			static void SetClearColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
-			static void Clear();
+
+			static void OnWindowResize(int width, int height);
+
+			static SDL_Renderer* GetNativeRenderer();
 		};
 	}
 }

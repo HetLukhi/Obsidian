@@ -36,8 +36,12 @@ namespace obsidian {
 				m_ClearA = a;
 			}
 
-			void Renderer::Clear(){
-				SDL_RenderClear(m_Renderer.get());
+			void Renderer::OnWindowResize(int width, int height) {
+				SDL_RenderSetViewport(m_Renderer.get(), nullptr);
+			}
+			
+			SDL_Renderer* Renderer::GetNativeRenderer() {
+				return m_Renderer.get();
 			}
 	}
 }
