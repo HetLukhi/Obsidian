@@ -2,6 +2,10 @@
 #include "Window.h"
 #include "Events/Event.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Renderer2D.h"
+#include "Renderer/Camera.h"
+#include "Renderer/Color.h"
+#include <memory>
 #include<iostream>
 
 namespace obsidian {

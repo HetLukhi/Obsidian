@@ -2,6 +2,9 @@
 
 namespace obsidian {
 	namespace renderer {
+
+		Color Renderer::m_ClearColor = Color(0, 0, 0, 255);
+
 		Renderer::RendererPtr Renderer::m_Renderer{ nullptr, SDL_DestroyRenderer };
 
 			void Renderer::Init(const obsidian::core::Window& window) {
