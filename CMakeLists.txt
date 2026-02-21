@@ -20,6 +20,8 @@ add_library(ObsidianCore
     Obsidian/Core/Window.cpp
     Obsidian/Maths/Vec2.cpp
     Obsidian/Renderer/Renderer.cpp
+    Obsidian/Renderer/Camera.cpp
+    Obsidian/Renderer/Renderer2D.cpp
     Obsidian/Events/Event.cpp
 )
 

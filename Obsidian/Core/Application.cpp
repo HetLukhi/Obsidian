@@ -36,6 +36,7 @@ namespace obsidian {
 		void Application::Run() {	
 			while (m_Running) {
 				obsidian::event::Event::Update();
+
 				m_Window->OnUpdate();
 
 				OnEvent();

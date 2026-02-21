@@ -3,10 +3,6 @@
 namespace obsidian {
 	namespace renderer {
 		Renderer::RendererPtr Renderer::m_Renderer{ nullptr, SDL_DestroyRenderer };
-		uint8_t Renderer::m_ClearR = 0;
-		uint8_t Renderer::m_ClearG = 0;
-		uint8_t Renderer::m_ClearB = 0;
-		uint8_t Renderer::m_ClearA = 255;
 
 			void Renderer::Init(const obsidian::core::Window& window) {
 				SDL_Window* raw_window = window.GetNativeWindow();
@@ -21,7 +17,7 @@ namespace obsidian {
 			}
 
 			void Renderer::BeginFrame() {
-				SDL_SetRenderDrawColor(m_Renderer.get(),m_ClearR, m_ClearG, m_ClearB, m_ClearA);
+				SDL_SetRenderDrawColor(m_Renderer.get(),m_ClearColor.r, m_ClearColor.g, m_ClearColor.b, m_ClearColor.a);
 				SDL_RenderClear(m_Renderer.get());
 			}
 
@@ -29,11 +25,11 @@ namespace obsidian {
 				SDL_RenderPresent(m_Renderer.get());
 			}
 
-			void Renderer::SetClearColor(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
-				m_ClearR = r;
-				m_ClearG = g;
-				m_ClearB = b;
-				m_ClearA = a;
+			void Renderer::SetClearColor(const Color& color) {
+				m_ClearColor.r = color.r;
+				m_ClearColor.g = color.g;
+				m_ClearColor.b = color.b;
+				m_ClearColor.a = color.a;
 			}
 
 			void Renderer::OnWindowResize(int width, int height) {
