@@ -14,6 +14,14 @@ FetchContent_Declare(
 
 FetchContent_MakeAvailable(SDL2)
 
+FetchContent_Declare(
+    SDL2_image
+    GIT_REPOSITORY https://github.com/libsdl-org/SDL_image.git
+    GIT_TAG release-2.8.2
+)
+
+FetchContent_MakeAvailable(SDL2 SDL2_image)
+
 
 add_library(ObsidianCore
     Obsidian/Core/Application.cpp
@@ -22,6 +30,7 @@ add_library(ObsidianCore
     Obsidian/Renderer/Renderer.cpp
     Obsidian/Renderer/Camera.cpp
     Obsidian/Renderer/Renderer2D.cpp
+    Obsidian/Renderer/Texture.cpp
     Obsidian/Events/Event.cpp
 )
 
@@ -31,7 +40,7 @@ target_include_directories(ObsidianCore PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-target_link_libraries(ObsidianCore PUBLIC SDL2::SDL2 SDL2::SDL2main)
+target_link_libraries(ObsidianCore PUBLIC SDL2::SDL2 SDL2::SDL2main SDL2_image::SDL2_image)
 
 add_executable(Sandbox
     Sandbox/Sandbox.cpp

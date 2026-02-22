@@ -21,7 +21,7 @@ namespace obsidian {
 			bool m_Running = true;
 			void Init();
 			void Shutdown();
-			void OnEvent();
+			void OnEvent(renderer::Camera& camera);
 		};
 
 		Application* CreateApplication();

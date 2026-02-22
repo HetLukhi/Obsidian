@@ -16,7 +16,7 @@ namespace obsidian {
 			void Move(const math::vec2& delta);
 
 			const math::vec2& GetPosition() const;
-
+			void SetViewportSize(float w,float h);
 			float GetViewportWidth() const;
 			float GetViewportHeight() const;
 

@@ -20,6 +20,11 @@ namespace obsidian {
 			return m_Position;
 		}
 
+		void Camera::SetViewportSize(float w, float h) {
+			m_ViewportWidth = w;
+			m_ViewportHeight = h;
+		}
+
 		float Camera::GetViewportWidth() const {
 			return m_ViewportWidth;
 		}

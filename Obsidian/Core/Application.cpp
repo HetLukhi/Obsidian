@@ -28,37 +28,31 @@ namespace obsidian {
 			SDL_Quit();
 		}
 
-		void Application::OnEvent() {
+		void Application::OnEvent(renderer::Camera& camera) {
 			if (obsidian::event::Event::QuitRequest()) m_Running = false;
 			if (obsidian::event::Event::IsWindowResized()) {
 				obsidian::renderer::Renderer::OnWindowResize(m_Window->GetWidth(), m_Window->GetHeight());
+				camera.SetViewportSize(Application::m_Window->GetWidth(), Application::m_Window->GetHeight());
 			}
 		}
 
 		void Application::Run() {
-
-			obsidian::renderer::Camera camera(1280.0f,720.0f);
-			camera.SetPosition({ 0.0f, 0.0f });
 			float lastFrameTime = 0.0f;
-			math::vec2 recPos = { 300,200 };
+			renderer::Camera camera(Application::m_Window->GetWidth(), Application::m_Window->GetHeight());
 
-			while (m_Running) {
+				while (m_Running) {
 
-				float currentTime = SDL_GetTicks() / 1000.0f;
-				float deltatime = currentTime - lastFrameTime;
-				lastFrameTime = currentTime;
+					float currentTime = SDL_GetTicks() / 1000.0f;
+					float deltaTime = currentTime - lastFrameTime;
+					lastFrameTime = currentTime;
 
-				obsidian::event::Event::Update();
+					obsidian::event::Event::Update();
+					m_Window->OnUpdate();
+					OnEvent(camera);
 
-				m_Window->OnUpdate();
-
-				OnEvent();
-
-				obsidian::renderer::Renderer::BeginFrame();
-				obsidian::renderer::Renderer2D::DrawQuad(recPos, { 100,50 }, obsidian::renderer::Color(255, 255, 255, 255));
-				obsidian::renderer::Renderer::EndFrame();
-
-			}
+					obsidian::renderer::Renderer::BeginFrame();
+					obsidian::renderer::Renderer::EndFrame();
+				}
 		}
 	}
 }
