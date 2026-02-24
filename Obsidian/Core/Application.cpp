@@ -6,13 +6,15 @@ namespace obsidian {
 		Application::Application() {
 			Init();
 			m_Window = Window::Create({ "Obsidian Engine", 1280, 720 });
-			obsidian::renderer::Renderer::Init(*m_Window);
-			obsidian::renderer::Renderer2D::Init();
+			renderer::Renderer::Init(*m_Window);
+			renderer::Renderer2D::Init();
+			renderer::Texture::Init();
 		}
 
 		Application::~Application(){
-			obsidian::renderer::Renderer2D::Shutdown();
-			obsidian::renderer::Renderer::Shutdown();
+			renderer::Texture::Shutdown();
+			renderer::Renderer2D::Shutdown();
+			renderer::Renderer::Shutdown();
 			m_Window.reset();
 			Shutdown();
 		}
@@ -29,15 +31,16 @@ namespace obsidian {
 		}
 
 		void Application::OnEvent(renderer::Camera& camera) {
-			if (obsidian::event::Event::QuitRequest()) m_Running = false;
-			if (obsidian::event::Event::IsWindowResized()) {
-				obsidian::renderer::Renderer::OnWindowResize(m_Window->GetWidth(), m_Window->GetHeight());
+			if (event::Event::QuitRequest()) m_Running = false;
+			if (event::Event::IsWindowResized()) {
+				renderer::Renderer::OnWindowResize(m_Window->GetWidth(), m_Window->GetHeight());
 				camera.SetViewportSize(Application::m_Window->GetWidth(), Application::m_Window->GetHeight());
 			}
 		}
 
 		void Application::Run() {
 			float lastFrameTime = 0.0f;
+
 			renderer::Camera camera(Application::m_Window->GetWidth(), Application::m_Window->GetHeight());
 
 				while (m_Running) {
@@ -46,12 +49,15 @@ namespace obsidian {
 					float deltaTime = currentTime - lastFrameTime;
 					lastFrameTime = currentTime;
 
-					obsidian::event::Event::Update();
+					event::Event::Update();
 					m_Window->OnUpdate();
 					OnEvent(camera);
 
-					obsidian::renderer::Renderer::BeginFrame();
-					obsidian::renderer::Renderer::EndFrame();
+					renderer::Renderer::BeginFrame();
+					renderer::Renderer2D::BeginScene(camera);
+					
+					renderer::Renderer2D::EndScene();
+					renderer::Renderer::EndFrame();
 				}
 		}
 	}

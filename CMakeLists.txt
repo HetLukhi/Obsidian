@@ -23,14 +23,16 @@ FetchContent_Declare(
 FetchContent_MakeAvailable(SDL2 SDL2_image)
 
 
-add_library(ObsidianCore
+
+add_library(ObsidianCore STATIC
     Obsidian/Core/Application.cpp
     Obsidian/Core/Window.cpp
     Obsidian/Maths/Vec2.cpp
     Obsidian/Renderer/Renderer.cpp
     Obsidian/Renderer/Camera.cpp
-    Obsidian/Renderer/Renderer2D.cpp
     Obsidian/Renderer/Texture.cpp
+    Obsidian/Renderer/Renderer2D.cpp
+    
     Obsidian/Events/Event.cpp
 )
 

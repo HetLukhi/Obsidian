@@ -9,8 +9,11 @@ namespace obsidian {
 	namespace renderer {
 		class Texture {
 		public:
-			Texture(SDL_Renderer* renderer,const std::string& path);
+			Texture(SDL_Renderer* renderer, const std::string& path);
 			~Texture() = default;
+
+			static void Init();
+			static void Shutdown();
 
 			SDL_Texture* GetNativeTexture() const;
 			int GetWidth() const;

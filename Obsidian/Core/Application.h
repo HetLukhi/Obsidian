@@ -5,6 +5,7 @@
 #include "Renderer/Renderer2D.h"
 #include "Renderer/Camera.h"
 #include "Renderer/Color.h"
+#include "Renderer/Texture.h"
 #include <memory>
 #include<iostream>
 

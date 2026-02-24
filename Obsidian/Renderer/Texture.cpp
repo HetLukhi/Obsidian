@@ -5,12 +5,20 @@ namespace obsidian {
 		Texture::Texture(SDL_Renderer* renderer, const std::string& path) :
 			m_Texture(nullptr, SDL_DestroyTexture), m_Width{ 0 }, m_Height{ 0 }
 		{
-			SDL_Texture* texture = IMG_LoadTexture(renderer,path.c_str());
+			SDL_Texture* texture = IMG_LoadTexture(renderer, path.c_str());
 			if (!texture) {
 				throw std::runtime_error(std::string("Error creating Texture: ") + SDL_GetError());
 			}
 			m_Texture.reset(texture);
 			SDL_QueryTexture(texture, nullptr, nullptr, &m_Width, &m_Height);
+		}
+
+		void Texture::Init() {
+			IMG_Init(IMG_INIT_JPG | IMG_INIT_PNG);
+		}
+
+		void Texture::Shutdown() {
+			IMG_Quit();
 		}
 
 		SDL_Texture* Texture::GetNativeTexture() const {

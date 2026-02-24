@@ -34,13 +34,13 @@ namespace obsidian {
 			SDL_Event event;
 			while (SDL_PollEvent(&event))
 			{
-				obsidian::event::Event::ProcessEvent(event);
+				event::Event::ProcessEvent(event);
 			}
 
-			if (obsidian::event::Event::IsWindowResized())
+			if (event::Event::IsWindowResized())
 			{
 				int w, h;
-				obsidian::event::Event::GetWindowSize(w, h);
+				event::Event::GetWindowSize(w, h);
 				m_Data.Width = w;
 				m_Data.Height = h;
 			}
