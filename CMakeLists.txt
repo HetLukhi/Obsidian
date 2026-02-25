@@ -33,6 +33,7 @@ add_library(ObsidianCore STATIC
     Obsidian/Renderer/Texture.cpp
     Obsidian/Renderer/Renderer2D.cpp
     Obsidian/Assets/AssetManager.cpp
+    Obsidian/Components/Sprite.cpp
     Obsidian/Events/Event.cpp
 )
 

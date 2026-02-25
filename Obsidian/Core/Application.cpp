@@ -52,10 +52,8 @@ namespace obsidian {
 					event::Event::Update();
 					m_Window->OnUpdate();
 					OnEvent(camera);
-
 					renderer::Renderer::BeginFrame();
 					renderer::Renderer2D::BeginScene(camera);
-					
 					renderer::Renderer2D::EndScene();
 					renderer::Renderer::EndFrame();
 				}
