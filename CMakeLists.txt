@@ -32,7 +32,7 @@ add_library(ObsidianCore STATIC
     Obsidian/Renderer/Camera.cpp
     Obsidian/Renderer/Texture.cpp
     Obsidian/Renderer/Renderer2D.cpp
-    
+    Obsidian/Assets/AssetManager.cpp
     Obsidian/Events/Event.cpp
 )
 
