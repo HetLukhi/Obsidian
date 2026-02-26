@@ -3,7 +3,7 @@
 namespace obsidian {
 	namespace components {
 
-		Sprite::Sprite() : m_Texture(nullptr), m_FlipHorizontal(false), m_FlipVertical(false) {
+		Sprite::Sprite() : m_Texture(nullptr),m_Angle(0.0), m_FlipHorizontal(false), m_FlipVertical(false) {
 			m_SourceRect = { 0, 0, 0, 0 };
 			m_DestRect = { 0, 0, 0, 0 };
 		}
@@ -19,6 +19,10 @@ namespace obsidian {
 		void Sprite::SetPosition(const math::vec2& position) {
 			m_DestRect.x = static_cast<int>(position.x);
 			m_DestRect.y = static_cast<int>(position.y);
+		}
+
+		void Sprite::SetAngle(double angle) {
+			m_Angle = angle;
 		}
 
 		void Sprite::SetSize(const math::vec2& size) {
@@ -50,7 +54,7 @@ namespace obsidian {
 			if (m_FlipVertical) {
 				flip = SDL_RendererFlip(flip | SDL_FLIP_VERTICAL);
 			}
-			SDL_RenderCopyEx(renderer, m_Texture->GetNativeTexture(),&m_SourceRect,&renderRect ,0.0, nullptr, flip);
+			SDL_RenderCopyEx(renderer, m_Texture->GetNativeTexture(),&m_SourceRect,&renderRect ,m_Angle, nullptr, flip);
 		}
 	}
 }

@@ -6,6 +6,8 @@
 #include "Renderer/Camera.h"
 #include "Renderer/Color.h"
 #include "Renderer/Texture.h"
+#include "Assets/AssetManager.h"
+#include "Components/Animation.h"
 #include "Components/Sprite.h"
 #include <memory>
 #include<iostream>
