@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Components/Sprite.h"
 #include "Maths/Vec2.h"
 
 namespace obsidian {

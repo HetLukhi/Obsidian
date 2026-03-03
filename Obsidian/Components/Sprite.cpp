@@ -58,11 +58,11 @@ namespace obsidian {
 		}
 
 		math::vec2 Sprite::GetPosition() const{
-			return {m_DestRect.x,m_DestRect.y};
+			return {(float)m_DestRect.x,(float)m_DestRect.y};
 		}
 
 		math::vec2 Sprite::GetSize() const{
-			return { m_DestRect.w,m_DestRect.h };
+			return { (float)m_DestRect.w,(float)m_DestRect.h };
 		}
 
 		physics::AABB Sprite::GetAABB() const{

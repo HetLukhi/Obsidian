@@ -2,6 +2,7 @@
 
 namespace obsidian {
 	namespace physics {
+		
 		bool Physics::checkAABB(const AABB& a,const AABB& b) {
 			math::vec2 aPos = a.pos;
 			math::vec2 aSize = a.size;

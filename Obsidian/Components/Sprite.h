@@ -15,8 +15,13 @@ namespace obsidian {
 			double m_Angle;
 			bool m_FlipHorizontal;
 			bool m_FlipVertical;
+
 		public:
 			Sprite();
+
+			math::vec2 GetPosition() const;
+			math::vec2 GetSize() const;
+			physics::AABB GetAABB() const;
 
 			void SetTexture(renderer::Texture* texture);
 			void SetSourceRect(const SDL_Rect& rect);
@@ -25,10 +30,6 @@ namespace obsidian {
 			void SetFlip(bool horizontal, bool vertical);
 			void SetAngle(double angle);
 			void Draw(SDL_Renderer* renderer, const renderer::Camera& camera);
-
-			math::vec2 GetPosition() const;
-			math::vec2 GetSize() const;
-			physics::AABB GetAABB() const;
 		};
 	}
 }

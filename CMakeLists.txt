@@ -36,6 +36,8 @@ add_library(ObsidianCore STATIC
     Obsidian/Components/Sprite.cpp
     Obsidian/Components/Animation.cpp
     Obsidian/Physics/Physics.cpp
+    Obsidian/World/TileMap.cpp
+    Obsidian/World/TileRegistry.cpp
     Obsidian/Events/Event.cpp
 )
 
