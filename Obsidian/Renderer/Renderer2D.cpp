@@ -62,24 +62,5 @@ namespace obsidian {
 
 			SDL_RenderCopy(renderer, texture.GetNativeTexture(), nullptr, &dst);
 		}
-
-		void Renderer2D::DrawFrame(SDL_Texture* texture, const math::vec2& frameSize, const math::vec2& position, const math::vec2& screenSize, int frameIndex, int row) {
-			SDL_Renderer* renderer = Renderer::GetNativeRenderer();
-			math::vec2 screenPos = position + m_CameraOffset;
-
-			SDL_Rect srcRect;
-			srcRect.x = static_cast<int>(frameIndex * frameSize.x);
-			srcRect.y = static_cast<int>(row * frameSize.y);
-			srcRect.w = static_cast<int>(frameSize.x);
-			srcRect.h = static_cast<int>(frameSize.y);
-
-			SDL_Rect destRect;
-			destRect.x = static_cast<int>(screenPos.x);
-			destRect.y = static_cast<int>(screenPos.y);
-			destRect.w = static_cast<int>(screenSize.x);
-			destRect.h = static_cast<int>(screenSize.y);
-
-			SDL_RenderCopy(renderer, texture, &srcRect, &destRect);
-		}
 	}
 }

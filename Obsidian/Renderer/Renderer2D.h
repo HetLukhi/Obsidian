@@ -17,7 +17,6 @@ namespace obsidian {
 
 			static void DrawTexture(const Texture& texture, const math::vec2& position);
 			static void DrawTexture(const Texture& texture, const math::vec2& position, const math::vec2& size);
-			static void DrawFrame(SDL_Texture* texture, const math::vec2& frameSize,const math::vec2& position, const math::vec2& screenSize, int frameIndex,int row);
 
 			static void SetClearColor(const Color& color);
 		private:

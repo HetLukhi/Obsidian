@@ -35,6 +35,7 @@ add_library(ObsidianCore STATIC
     Obsidian/Assets/AssetManager.cpp
     Obsidian/Components/Sprite.cpp
     Obsidian/Components/Animation.cpp
+    Obsidian/Physics/Physics.cpp
     Obsidian/Events/Event.cpp
 )
 

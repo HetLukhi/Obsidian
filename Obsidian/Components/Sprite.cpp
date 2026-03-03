@@ -56,5 +56,17 @@ namespace obsidian {
 			}
 			SDL_RenderCopyEx(renderer, m_Texture->GetNativeTexture(),&m_SourceRect,&renderRect ,m_Angle, nullptr, flip);
 		}
+
+		math::vec2 Sprite::GetPosition() const{
+			return {m_DestRect.x,m_DestRect.y};
+		}
+
+		math::vec2 Sprite::GetSize() const{
+			return { m_DestRect.w,m_DestRect.h };
+		}
+
+		physics::AABB Sprite::GetAABB() const{
+			return {GetPosition(),GetSize()};
+		}
 	}
 }

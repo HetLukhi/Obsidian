@@ -3,6 +3,7 @@
 #include "Renderer/Texture.h"
 #include "Maths/Vec2.h"
 #include "Renderer/Camera.h"
+#include "Physics/Physics.h"
 
 namespace obsidian {
 	namespace components {
@@ -24,6 +25,10 @@ namespace obsidian {
 			void SetFlip(bool horizontal, bool vertical);
 			void SetAngle(double angle);
 			void Draw(SDL_Renderer* renderer, const renderer::Camera& camera);
+
+			math::vec2 GetPosition() const;
+			math::vec2 GetSize() const;
+			physics::AABB GetAABB() const;
 		};
 	}
 }
