@@ -37,6 +37,13 @@ namespace obsidian {
 			return m_Playing;
 		}
 
+		SDL_Rect Animation::GetCurrentFrameRect() const {
+			if (m_Frames.empty()) {
+				return { 0, 0, 0, 0 };
+			}
+			return m_Frames[m_CurrentFrame].rect;
+		}
+
 		void Animation::Update(float deltaTime) {
 			if (!m_Playing || m_Frames.empty())
 				return;

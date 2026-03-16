@@ -14,7 +14,7 @@ namespace obsidian {
 			TileMap(renderer::Texture* tileset,int tilewidth,int tileheight);
 			void SetMapData(const std::vector<std::vector <int>>& data);
 
-			void Render(SDL_Renderer* renderer,const renderer::Camera& camera);
+			void Render(SDL_Renderer* renderer,const renderer::Camera& camera,float deltaTime);
 
 			bool IsTileSolid(int x,int y) const;
 			bool IsTileDangerous(int x, int y) const;

@@ -16,8 +16,8 @@ namespace obsidian {
 			static void Shutdown();
 
 			SDL_Texture* GetNativeTexture() const;
-			int GetWidth() const;
-			int GetHeight() const;
+			inline int GetWidth() const { return m_Width; }
+			inline int GetHeight() const { return m_Height; }
 		private:
 			std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)> m_Texture;
 			int m_Width;

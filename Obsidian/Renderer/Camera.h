@@ -17,8 +17,8 @@ namespace obsidian {
 
 			const math::vec2& GetPosition() const;
 			void SetViewportSize(float w,float h);
-			float GetViewportWidth() const;
-			float GetViewportHeight() const;
+			inline float GetViewportWidth() const { return m_ViewportWidth; }
+			inline float GetViewportHeight() const { return m_ViewportHeight; }
 
 			math::vec2 GetOffset() const;
 		};

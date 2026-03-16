@@ -18,6 +18,7 @@ namespace obsidian {
 			void play(bool loop = true);
 			void stop();
 			void reset();
+			SDL_Rect GetCurrentFrameRect() const;
 
 			bool IsPlaying() const;
 

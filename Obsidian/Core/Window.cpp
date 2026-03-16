@@ -21,14 +21,6 @@ namespace obsidian {
 			}
 		}
 
-		unsigned int Window::GetWidth() const {
-			return m_Data.Width;
-		}
-
-		unsigned int Window::GetHeight() const {
-			return m_Data.Height;
-		}
-
 		void Window::OnUpdate() {
 			
 			SDL_Event event;

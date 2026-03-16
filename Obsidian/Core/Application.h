@@ -9,6 +9,9 @@
 #include "Assets/AssetManager.h"
 #include "Components/Animation.h"
 #include "Components/Sprite.h"
+#include "World/Tile.h"
+#include "World/TileMap.h"
+#include "World/TileRegistry.h"
 #include <memory>
 #include<iostream>
 

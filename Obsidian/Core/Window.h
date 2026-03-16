@@ -40,8 +40,8 @@ namespace obsidian {
 
 			void OnUpdate();
 			
-			unsigned int GetWidth() const;
-			unsigned int GetHeight() const;
+			inline unsigned int GetWidth() const { return m_Data.Width; }
+			inline unsigned int GetHeight() const { return m_Data.Height; }
 			SDL_Window* GetNativeWindow() const;
 			static std::unique_ptr<Window> Create(const WindowProps& props = WindowProps());
 

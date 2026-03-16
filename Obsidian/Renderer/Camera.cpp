@@ -25,12 +25,6 @@ namespace obsidian {
 			m_ViewportHeight = h;
 		}
 
-		float Camera::GetViewportWidth() const {
-			return m_ViewportWidth;
-		}
-		float Camera::GetViewportHeight() const {
-			return m_ViewportHeight;
-		}
 		math::vec2 Camera::GetOffset() const {
 			return {-m_Position.x,-m_Position.y};
 		}

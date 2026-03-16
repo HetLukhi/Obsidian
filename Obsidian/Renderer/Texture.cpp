@@ -24,12 +24,5 @@ namespace obsidian {
 		SDL_Texture* Texture::GetNativeTexture() const {
 			return m_Texture.get();
 		}
-
-		int Texture::GetWidth() const {
-			return m_Width;
-		}
-		int Texture::GetHeight() const {
-			return m_Height;
-		}
 	}
 }
