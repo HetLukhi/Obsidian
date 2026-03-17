@@ -51,6 +51,7 @@ namespace obsidian {
 
 				event::Event::Update();
 				m_Window->OnUpdate();
+
 				OnEvent(camera);
 
 				renderer::Renderer::BeginFrame();

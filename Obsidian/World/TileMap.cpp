@@ -3,63 +3,105 @@
 namespace obsidian {
 	namespace world {
 		TileMap::TileMap(renderer::Texture* tileset, int tilewidth, int tileheight) : 
-			m_Tileset{ tileset }, m_TileWidth{ tilewidth }, m_TileHeight{tileheight},
-			m_MapWidth{ 0 }, m_MapHeight{0}
+			m_Tileset{ tileset },m_MapWidth{ 0 }, m_MapHeight{0}
 		{}
 
-		void TileMap::SetMapData(const std::vector<std::vector<int>>& data) {
-			m_MapData = data;
-			m_MapHeight = data.size();
-			m_MapWidth = data[0].size();
+		void TileMap::SetLayerData(int layerIndex,const std::vector<std::vector<int>>& data) {
+			if (layerIndex >= m_Layers.size()) {
+				m_Layers.resize(layerIndex + 1);
+			}
+			if (m_MapWidth == 0 && m_MapHeight == 0)
+			{
+				m_MapHeight = data.size();
+				m_MapWidth = data[0].size();
+			}
+			if (data.size() != m_MapHeight || data[0].size() != m_MapWidth)
+			{
+				return;
+			}
+			m_Layers[layerIndex].m_MapData = data;
+		}
+
+		void TileMap::AddLayer(const Layer& layer) {
+			m_Layers.push_back(layer);
 		}
 
 		void TileMap::Render(SDL_Renderer* renderer,const renderer::Camera& camera,float deltaTime) {
-			int startX = (camera.GetPosition().x) / m_TileWidth;
-			int startY = (camera.GetPosition().y) / m_TileHeight;
-			int endX = (camera.GetPosition().x + camera.GetViewportWidth()) / m_TileWidth + 1;
-			int endY = (camera.GetPosition().y + camera.GetViewportHeight()) / m_TileHeight + 1;
+			for (const Layer& layer : m_Layers) {
+			int startX = (camera.GetPosition().x) / layer.tileWidth;
+			int startY = (camera.GetPosition().y) / layer.tileHeight;
+			int endX = (camera.GetPosition().x + camera.GetViewportWidth()) / layer.tileWidth + 1;
+			int endY = (camera.GetPosition().y + camera.GetViewportHeight()) / layer.tileHeight + 1;
+
+			int layerWidth = layer.m_MapData[0].size();
+			int layerHeight = layer.m_MapData.size();
 
 			startX = std::max(startX, 0);
 			startY = std::max(startY, 0);
-			endX = std::min(endX, m_MapWidth);
-			endY = std::min(endY, m_MapHeight);
+			endX = std::min(endX, layerWidth);
+			endY = std::min(endY, layerHeight);
 
 			
+			
+				for (int y = startY; y < endY; y++) {
+					for (int x = startX; x < endX; x++) {
+						int tileID = layer.m_MapData[y][x];
+						if (tileID < 0)
+							continue;
+						if (!TileRegistry::HasTile(tileID))
+							continue;
+						const Tile& tile = TileRegistry::GetTile(tileID);
 
-			for (int y = startY; y < endY; y++) {
-				for (int x = startX; x < endX; x++) {
-					int tileID = m_MapData[y][x];
-					Tile tile = TileRegistry::GetTile(tileID);
+						SDL_Rect srcRect = tile.srcRect;
+						if (tile.animation)
+							srcRect = tile.animation->GetCurrentFrameRect();
 
-					if (tile.animation) tile.animation->Update(deltaTime);
+						SDL_Rect destRect = {
+							x * layer.tileWidth + static_cast<int>(camera.GetOffset().x),
+							y * layer.tileHeight + static_cast<int>(camera.GetOffset().y),
+							layer.tileWidth,
+							layer.tileHeight
+						};
 
-					SDL_Rect srcRect = tile.srcRect;
-					if (tile.animation)
-						srcRect = tile.animation->GetCurrentFrameRect();
-
-					SDL_Rect destRect = {
-						x * m_TileWidth + static_cast<int>(camera.GetOffset().x),
-						y * m_TileHeight + static_cast<int>(camera.GetOffset().y),
-						m_TileWidth,
-						m_TileHeight
-					};
-
-					SDL_RenderCopy(renderer, m_Tileset->GetNativeTexture(), &srcRect, &destRect);
+						SDL_RenderCopy(renderer, m_Tileset->GetNativeTexture(), &srcRect, &destRect);
+					}
 				}
 			}
 		}
 		bool TileMap::IsTileSolid(int x, int y) const {
+
 			if (x < 0 || y < 0 || x >= m_MapWidth || y >= m_MapHeight)
 				return false;
-			int tileID = m_MapData[y][x];
-			return TileRegistry::GetTile(tileID).solid;
+			for (const Layer& layer : m_Layers) {
+				int tileID = layer.m_MapData[y][x];
+				if (tileID < 0)
+					continue;
+				if (TileRegistry::GetTile(tileID).solid)
+					return true;
+			}
+			return false;
+		}
+
+		int TileMap::WorldToTileX(float x,const Layer& layer) const{
+			return static_cast<int>(std::floor(x / layer.tileWidth));
+		}
+
+		int TileMap::WorldToTileY(float y, const Layer& layer) const{
+			return static_cast<int>(std::floor(y / layer.tileHeight));
 		}
 
 		bool TileMap::IsTileDangerous(int x, int y) const {
+
 			if (x < 0 || y < 0 || x >= m_MapWidth || y >= m_MapHeight)
 				return false;
-			int tileID = m_MapData[y][x];
-			return TileRegistry::GetTile(tileID).dangerous;
+			for (const Layer& layer : m_Layers) {
+				int tileID = layer.m_MapData[y][x];
+				if (tileID < 0)
+					continue;
+				if (TileRegistry::GetTile(tileID).dangerous)
+					return true;
+			}
+			return false;
 		}
 	}
 }
