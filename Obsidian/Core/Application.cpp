@@ -53,11 +53,13 @@ namespace obsidian {
 				m_Window->OnUpdate();
 
 				OnEvent(camera);
+				OnUpdate(deltaTime);
 				
 				renderer::Renderer::BeginFrame();
 				renderer::Renderer2D::BeginScene(camera);
 
-
+				OnRender();
+				
 				renderer::Renderer2D::EndScene();
 				renderer::Renderer::EndFrame();
 			}

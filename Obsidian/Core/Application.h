@@ -23,8 +23,8 @@ namespace obsidian {
 			virtual ~Application();
 			void Run();
 
-			virtual void OnUpdate(float deltaTime);
-			virtual void OnRender();
+			virtual void OnUpdate(float deltaTime) = 0;
+			virtual void OnRender() = 0;
 
 		private:
 			std::unique_ptr<obsidian::core::Window> m_Window;
