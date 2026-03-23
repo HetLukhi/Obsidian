@@ -15,9 +15,9 @@ namespace obsidian {
 
 			void AddFrame(const SDL_Rect& rect, float duration);
 			void Update(float deltaTime);
-			void play(bool loop = true);
-			void stop();
-			void reset();
+			void Play(bool loop = true);
+			void Stop();
+			void Reset();
 			SDL_Rect GetCurrentFrameRect() const;
 
 			bool IsPlaying() const;

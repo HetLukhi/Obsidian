@@ -14,6 +14,9 @@ namespace obsidian {
 			std::vector<std::vector<int>> m_MapData;
 			int tileWidth;
 			int tileHeight;
+
+			int layerWidth;
+			int layerHeight;
 		};
 
 		class TileMap {
@@ -25,8 +28,8 @@ namespace obsidian {
 
 			void Render(SDL_Renderer* renderer, const renderer::Camera& camera, float deltaTime);
 
-			bool IsTileSolid(int x, int y) const;
-			bool IsTileDangerous(int x, int y) const;
+			bool IsTileSolid(const math::vec2& position) const;
+			bool IsTileDangerous(const math::vec2& position) const;
 
 			int WorldToTileX(float x, const Layer& layer) const;
 			int WorldToTileY(float y, const Layer& layer) const;

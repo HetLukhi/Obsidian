@@ -9,7 +9,7 @@ namespace obsidian {
 		}
 
 
-		void Animation::play(bool loop) {
+		void Animation::Play(bool loop) {
 			if (m_Frames.empty()) return;
 
 			m_Playing = true;
@@ -21,11 +21,11 @@ namespace obsidian {
 
 		}
 
-		void Animation::stop() {
+		void Animation::Stop() {
 			m_Playing = false;
 		}
 
-		void Animation::reset() {
+		void Animation::Reset() {
 			if (m_Frames.empty()) return;
 
 			m_CurrentFrame = 0;

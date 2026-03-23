@@ -15,11 +15,10 @@ namespace obsidian {
 				m_MapHeight = data.size();
 				m_MapWidth = data[0].size();
 			}
-			if (data.size() != m_MapHeight || data[0].size() != m_MapWidth)
-			{
-				return;
-			}
+
 			m_Layers[layerIndex].m_MapData = data;
+			m_Layers[layerIndex].layerWidth = data[0].size();
+			m_Layers[layerIndex].layerHeight = data.size();
 		}
 
 		void TileMap::AddLayer(const Layer& layer) {
@@ -68,13 +67,18 @@ namespace obsidian {
 				}
 			}
 		}
-		bool TileMap::IsTileSolid(int x, int y) const {
-
-			if (x < 0 || y < 0 || x >= m_MapWidth || y >= m_MapHeight)
-				return false;
+		bool TileMap::IsTileSolid(const math::vec2& position) const {
 			for (const Layer& layer : m_Layers) {
-				int tileID = layer.m_MapData[y][x];
+				if (layer.m_MapData.empty())
+					continue;
+				int tileX = WorldToTileX(position.x, layer);
+				int tileY = WorldToTileY(position.y, layer);
+				if (tileX < 0 || tileY < 0 || tileX >= layer.layerWidth || tileY >= layer.layerHeight)
+					continue;
+				int tileID = layer.m_MapData[tileY][tileX];
 				if (tileID < 0)
+					continue;
+				if (!TileRegistry::HasTile(tileID))
 					continue;
 				if (TileRegistry::GetTile(tileID).solid)
 					return true;
@@ -90,13 +94,18 @@ namespace obsidian {
 			return static_cast<int>(std::floor(y / layer.tileHeight));
 		}
 
-		bool TileMap::IsTileDangerous(int x, int y) const {
-
-			if (x < 0 || y < 0 || x >= m_MapWidth || y >= m_MapHeight)
-				return false;
+		bool TileMap::IsTileDangerous(const math::vec2& position) const {
 			for (const Layer& layer : m_Layers) {
-				int tileID = layer.m_MapData[y][x];
+				if (layer.m_MapData.empty())
+					continue;
+				int tileX = WorldToTileX(position.x, layer);
+				int tileY = WorldToTileY(position.y, layer);
+				if (tileX < 0 || tileY < 0 || tileX >= layer.layerWidth || tileY >= layer.layerHeight)
+					continue;
+				int tileID = layer.m_MapData[tileY][tileX];
 				if (tileID < 0)
+					continue;
+				if (!TileRegistry::HasTile(tileID))
 					continue;
 				if (TileRegistry::GetTile(tileID).dangerous)
 					return true;
