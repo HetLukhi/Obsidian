@@ -9,7 +9,7 @@ namespace obsidian {
 			bool solid;
 			bool dangerous;
 
-			components::Animation* animation;
+			components::Animation* animation = nullptr;
 		};
 	}
 }

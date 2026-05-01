@@ -2,16 +2,7 @@
 #include "Window.h"
 #include "Events/Event.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Renderer2D.h"
 #include "Renderer/Camera.h"
-#include "Renderer/Color.h"
-#include "Renderer/Texture.h"
-#include "Assets/AssetManager.h"
-#include "Components/Animation.h"
-#include "Components/Sprite.h"
-#include "World/Tile.h"
-#include "World/TileMap.h"
-#include "World/TileRegistry.h"
 #include <memory>
 #include<iostream>
 
@@ -22,6 +13,8 @@ namespace obsidian {
 			Application();
 			virtual ~Application();
 			void Run();
+
+			Window* GetWindow() { return m_Window.get(); }
 
 			virtual void OnUpdate(float deltaTime) = 0;
 			virtual void OnRender() = 0;

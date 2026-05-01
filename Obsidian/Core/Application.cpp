@@ -7,13 +7,9 @@ namespace obsidian {
 			Init();
 			m_Window = Window::Create({ "Obsidian Engine", 1280, 720 });
 			renderer::Renderer::Init(*m_Window);
-			renderer::Renderer2D::Init();
-			renderer::Texture::Init();
 		}
 
 		Application::~Application(){
-			renderer::Texture::Shutdown();
-			renderer::Renderer2D::Shutdown();
 			renderer::Renderer::Shutdown();
 			m_Window.reset();
 			Shutdown();
@@ -54,16 +50,13 @@ namespace obsidian {
 
 				OnEvent(camera);
 				OnUpdate(deltaTime);
-				
+
 				renderer::Renderer::BeginFrame();
-				renderer::Renderer2D::BeginScene(camera);
 
 				OnRender();
-				
-				renderer::Renderer2D::EndScene();
+
 				renderer::Renderer::EndFrame();
 			}
-			assets::AssetManager::Clear();
 		}
 	}
 }
